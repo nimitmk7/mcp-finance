@@ -75,13 +75,17 @@ git clone git@github.com:nimitmk7/mcp-finance.git
 
 
 If you already have some MCP servers, just add the `mcp-finance` config in the list of configs of MCP servers.
-Restart the client after these steps. 
+Restart the Claude Desktop client after these steps. 
 
 ## 3. Verify the setup
 
 1. In the UI, click on the hammer icon and check whether our server tools are present in the list of available tools.
 
+## 4. Example Usage
 
-
+1. Try asking Claude questions like:
+   - "Show me the current price of Tesla stock"
+   - "Get historical prices for MSFT from 2024-01-01 to 2024-12-31"
+   - "Get me latest news for Nvidia" 
 
 
