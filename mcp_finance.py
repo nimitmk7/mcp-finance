@@ -79,6 +79,7 @@ async def get_stock_news(symbol: str, count: int = 5) -> str:
 
 @mcp.tool()
 async def get_earnings_date(symbol: str) -> str:
+    """Fetch the earnings announcement dates for a stock symbol."""
     stock = yf.Ticker(symbol)
     cal = stock.calendar
     if cal.empty:
