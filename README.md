@@ -1,6 +1,6 @@
 # Introduction
 This is a MCP server that helps your MCP client/LLM get access to financial data like stock price, company info, company news, earning dates. 
-It is written in Python and uses the `yfinance` package to fetch the relevant details.
+It is powered by the `yfinance` Python library.
 
 # Tools available:
 1. Get Stock Price: Fetch the latest stock price for a symbol.
