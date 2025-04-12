@@ -92,9 +92,9 @@ Restart the Claude Desktop client after these steps.
 
 ## 4. Example Usage
 
-1. Try asking Claude questions like:
-   - "Show me the current price of Tesla stock"
-   - "Get historical prices for MSFT from 2024-01-01 to 2024-12-31"
-   - "Get me latest news for Nvidia" 
+Try asking Claude questions like:
+   - "What is the price of Nvidia stock right now"
+   - "How much has the share price of Google changed over 1 month "
+   - "Get me latest news for Microsoft" 
 
 
