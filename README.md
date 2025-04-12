@@ -1,14 +1,13 @@
 # Introduction
 This is a MCP server that helps your MCP client/LLM get access to financial data like stock price, company info, company news, earning dates. 
-It is powered by the `yfinance` Python library.
+It is powered by the `yfinance` Python library and MarketAux API.
 
 # Tools available:
 1. Get Stock Price: Fetch the latest stock price for a symbol.
 2. Get Company Info: Fetch basic company info(Name, Sector, Industry, Website, Business Summary)
 3. Get Historical Data: Fetch historical data for a stock
 4. Get Stock News: Fetch latest news related to a stock symbol
-5. Get Earnings Date: Fetch the earnings announcement dates for a stock symbol.
-6. Get Market Indices: Fetch the latest data for major US market indices.
+5. Get Market Indices: Fetch the latest data for major US market indices.
 
 
 # Setup your environment
@@ -34,6 +33,16 @@ Now, let’s create and set up our project:
 ```
 git clone git@github.com:nimitmk7/mcp-finance.git
 
+```
+
+### Set up environment variables:
+
+```
+# Create .env file for your API keys
+cp .env.example .env
+
+# Set API key in .env
+MARKETAUX_API_KEY=your-marketaux-api-key
 ```
 
 ### Adding the server to Claude Client

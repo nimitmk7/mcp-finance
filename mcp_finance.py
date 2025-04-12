@@ -1,8 +1,13 @@
 import yfinance as yf
 from mcp.server.fastmcp import FastMCP
+import httpx
+import os
+from dotenv import load_dotenv
+load_dotenv()  # This will load .env into os.environ
 
 # Initialize MCP server
 mcp = FastMCP("financial_data")
+MARKETAUX_API_KEY = os.environ.get("MARKETAUX_API_KEY")
 
 @mcp.tool()
 async def get_stock_price(symbol: str) -> str:
@@ -35,7 +40,6 @@ Name: {data.get("longName", "N/A")}
 Sector: {data.get("sector", "N/A")}
 Industry: {data.get("industry", "N/A")}
 Website: {data.get("website", "N/A")}
-
 Description: {data["longBusinessSummary"]}
 """
 
@@ -59,33 +63,36 @@ async def get_historical_data(symbol: str, period: str = "5d") -> str:
 
     return output.strip()
 
+
 @mcp.tool()
 async def get_stock_news(symbol: str, count: int = 5) -> str:
-    """Fetch latest news related to a stock symbol."""
-    stock = yf.Ticker(symbol)
-    news_items = stock.news
+    """Fetch latest news using MarketAux API."""
+    url = "https://api.marketaux.com/v1/news/all"
+    params = {
+        "countries": "us",
+        "symbols": symbol,
+        "filter_entities": "true",
+        "language": "en",
+        "limit": count,
+        "api_token": MARKETAUX_API_KEY
+    }
 
-    if not news_items:
-        return f"No news found for symbol: {symbol}"
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.get(url, params=params)
+            response.raise_for_status()
+            data = response.json()
+        except Exception as e:
+            return f"Error fetching news: {e}"
 
-    output = f"Latest news for {symbol}:\n"
-    for article in news_items[:count]:
-        title = article.get("title", "No Title")
-        publisher = article.get("publisher", "Unknown Publisher")
-        link = article.get("link", "")
-        output += f"\n📰 {title} ({publisher})\n🔗 {link}\n"
+    if not data.get("data"):
+        return f"No news found for {symbol}."
+
+    output = f"🗞️ Latest news for {symbol}:\n"
+    for article in data["data"]:
+        output += f"\n• {article['title']} ({article['source']})\n🔗 {article['url']}\n"
 
     return output.strip()
-
-@mcp.tool()
-async def get_earnings_date(symbol: str) -> str:
-    """Fetch the earnings announcement dates for a stock symbol."""
-    stock = yf.Ticker(symbol)
-    cal = stock.calendar
-    if cal.empty:
-        return f"No earnings calendar data for {symbol}."
-    earnings_date = cal.loc['Earnings Date'].values[0]
-    return f"Earnings Date for {symbol}: {earnings_date}"
 
 @mcp.tool()
 async def get_market_indices() -> str:
