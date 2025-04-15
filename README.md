@@ -1,5 +1,5 @@
 # Introduction
-This is a MCP server that helps your MCP client/LLM get access to financial data like stock price, company info, company news, earning dates. 
+This is a MCP server that helps your MCP client/LLM get access to financial data like stock price, company info, and company news. 
 It is powered by the `yfinance` Python library and MarketAux API.
 
 # Tools available:
